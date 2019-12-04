@@ -1,4 +1,8 @@
-# Spring PetClinic Sample Application [![Build Status](https://travis-ci.org/spring-petclinic/spring-framework-petclinic.svg?branch=master)](https://travis-ci.org/spring-petclinic/spring-framework-petclinic/)
+# Spring PetClinic Sample Application
+
+[![Build Status](https://travis-ci.org/spring-petclinic/spring-framework-petclinic.svg?branch=master)](https://travis-ci.org/spring-petclinic/spring-framework-petclinic/) 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=spring-petclinic_spring-framework-petclinic&metric=alert_status)](https://sonarcloud.io/dashboard?id=spring-petclinic_spring-framework-petclinic)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=spring-petclinic_spring-framework-petclinic&metric=coverage)](https://sonarcloud.io/dashboard?id=spring-petclinic_spring-framework-petclinic)
 
 Approved by the Spring team, this repo is a fork of the [spring-projects/spring-petclinic](https://github.com/spring-projects/spring-petclinic).
 It allows the Spring community to maintain a Petclinic version with a plain old **Spring Framework configuration**
@@ -7,13 +11,22 @@ The "canonical" implementation is now based on Spring Boot, Thymeleaf and [aggre
 
 
 ## Understanding the Spring Petclinic application with a few diagrams
+
 [See the presentation here](http://fr.slideshare.net/AntoineRey/spring-framework-petclinic-sample-application) (2017 update)
 
 ## Running petclinic locally
+
+### With Maven command line
 ```
-	git clone https://github.com/spring-petclinic/spring-framework-petclinic.git
-	cd spring-framework-petclinic
-	./mvnw jetty:run-war
+git clone https://github.com/spring-petclinic/spring-framework-petclinic.git
+cd spring-framework-petclinic
+./mvnw jetty:run-war
+# For Windows : ./mvnw.cmd jetty:run-war
+```
+
+### With Docker
+```
+docker run -p 8080:8080 springcommunity/spring-framework-petclinic
 ```
 
 You can then access petclinic here: [http://localhost:8080/](http://localhost:8080/)
@@ -21,6 +34,7 @@ You can then access petclinic here: [http://localhost:8080/](http://localhost:80
 <img width="1042" alt="petclinic-screenshot" src="https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png">
 
 ## In case you find a bug/suggested improvement for Spring Petclinic
+
 Our issue tracker is available here: https://github.com/spring-petclinic/spring-framework-petclinic/issues
 
 
@@ -82,7 +96,7 @@ docker run --name postgres-petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_
 
 ### Prerequisites
 The following items should be installed in your system:
-* Java 8 (waiting the [wro4j JDK 9 compatibility fix](https://github.com/wro4j/wro4j/issues/1039) for Java 9, 10 and 11 support)
+* Java 8 or above
 * Maven 3.3+ (http://maven.apache.org/install.html)
 * git command line tool (https://help.github.com/articles/set-up-git)
 * Jetty 9.4+ or Tomcat 9+
@@ -136,7 +150,7 @@ The following items should be installed in your system:
 | Spring MVC - ContentNegotiatingViewResolver| [MvcViewConfig.java](src/main/java/org/springframework/samples/petclinic/config/MvcViewConfig.java) |
 | JSP custom tags | [WEB-INF/tags](src/main/webapp/WEB-INF/tags), [createOrUpdateOwnerForm.jsp](src/main/webapp/WEB-INF/jsp/owners/createOrUpdateOwnerForm.jsp)|
 | JavaScript dependencies | [JavaScript libraries are declared as webjars in the pom.xml](pom.xml) |
-| Static resources config | [Resource mapping in Spring configuration](src/main/java/org/springframework/samples/petclinic/config/MvcCoreConfig.java#L84) |
+| Static resources config | [Resource mapping in Spring configuration](/src/main/resources/spring/mvc-core-config.xml#L30) |
 | Static resources usage | [htmlHeader.tag](src/main/webapp/WEB-INF/tags/htmlHeader.tag), [footer.tag](src/main/webapp/WEB-INF/tags/footer.tag) |
 | Thymeleaf | In the late 2016, the original [Spring Petclinic](https://github.com/spring-projects/spring-petclinic) has moved from JSP to Thymeleaf. |
 
@@ -148,6 +162,32 @@ The following items should be installed in your system:
 | JDBC | [JdbcConfig.java](src/main/java/org/springframework/samples/petclinic/config/JdbcConfig.java), [jdbc folder](src/main/java/org/springframework/samples/petclinic/repository/jdbc) |
 | JPA | [JpaConfig.java](src/main/java/org/springframework/samples/petclinic/config/JpaConfig.java), [SharedJpaConfig.java](src/main/java/org/springframework/samples/petclinic/config/SharedJpaConfig.java), [jpa folder](src/main/java/org/springframework/samples/petclinic/repository/jpa) |
 | Spring Data JPA | [SpringDataJpaConfig.java](src/main/java/org/springframework/samples/petclinic/config/SpringDataJpaConfig.java),  [SharedJpaConfig.java](src/main/java/org/springframework/samples/petclinic/config/SharedJpaConfig.java), [springdatajpa folder](src/main/java/org/springframework/samples/petclinic/repository/springdatajpa) |
+
+
+## Publishing a Docker image
+
+This application uses [Google Jib]([https://github.com/GoogleContainerTools/jib) to build an optimized Docker image
+into the [Docker Hub](https://cloud.docker.com/u/springcommunity/repository/docker/springcommunity/spring-framework-petclinic/)
+repository.
+The [pom.xml](pom.xml) has been configured to publish the image with a the `springcommunity/spring-framework-petclinic` image name.
+
+Jib containerizes this WAR project by using the [distroless Jetty](https://github.com/GoogleContainerTools/distroless/tree/master/java/jetty) as a base image.
+
+Build and push the container image of Petclinic to the Docker Hub registry:
+```
+mvn jib:build
+```
+
+
+## Interesting Spring Petclinic forks
+
+The Spring Petclinic master branch in the main [spring-projects](https://github.com/spring-projects/spring-petclinic)
+GitHub org is the "canonical" implementation, currently based on Spring Boot and Thymeleaf.
+
+This [spring-framework-petclinic](https://github.com/spring-petclinic/spring-framework-petclinic) project is one of the [several forks](https://spring-petclinic.github.io/docs/forks.html) 
+hosted in a special GitHub org: [spring-petclinic](https://github.com/spring-petclinic).
+If you have a special interest in a different technology stack
+that could be used to implement the Pet Clinic then please join the community there.
 
 
 ## Interaction with other open source projects

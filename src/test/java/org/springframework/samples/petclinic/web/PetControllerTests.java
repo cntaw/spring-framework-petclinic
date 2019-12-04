@@ -4,7 +4,9 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.support.FormattingConversionServiceFactoryBean;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.samples.petclinic.config.MvcCoreConfig;
+import org.springframework.samples.petclinic.config.MvcTestConfig;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -18,13 +20,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 /**
  * Test class for the {@link PetController}
  *
  * @author Colin But
  */
-@SpringJUnitWebConfig(locations = {"classpath:spring/mvc-core-config.xml", "classpath:spring/mvc-test-config.xml"})
-class PetControllerTests {
+@SpringJUnitWebConfig({ MvcCoreConfig.class, MvcTestConfig.class })
+public class PetControllerTests {
 
     private static final int TEST_OWNER_ID = 1;
     private static final int TEST_PET_ID = 1;
@@ -33,7 +36,7 @@ class PetControllerTests {
     private PetController petController;
 
     @Autowired
-    private FormattingConversionServiceFactoryBean formattingConversionServiceFactoryBean;
+    private PetTypeFormatter petTypeFormatter;
 
     @Autowired
     private ClinicService clinicService;
@@ -41,10 +44,12 @@ class PetControllerTests {
     private MockMvc mockMvc;
 
     @BeforeEach
-    void setup() {
+    public void setup() {
+        DefaultFormattingConversionService formattingConversionService = new DefaultFormattingConversionService();
+        formattingConversionService.addFormatter(petTypeFormatter);
         this.mockMvc = MockMvcBuilders
             .standaloneSetup(petController)
-            .setConversionService(formattingConversionServiceFactoryBean.getObject())
+            .setConversionService(formattingConversionService)
             .build();
 
         PetType cat = new PetType();

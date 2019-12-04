@@ -144,14 +144,10 @@ The following items should be installed in your system:
 
 ## Looking for something in particular?
 
-| Java Config |   |
-|-------------|---|
-| Java config branch | Petclinic uses XML configuration by default. In case you'd like to use Java Config instead, there is a Java Config branch available [here](https://github.com/spring-petclinic/spring-framework-petclinic/tree/javaconfig) |
-
 | Inside the 'Web' layer | Files |
 |------------------------|-------|
-| Spring MVC - XML integration | [mvc-view-config.xml](src/main/resources/spring/mvc-view-config.xml)  |
-| Spring MVC - ContentNegotiatingViewResolver| [mvc-view-config.xml](src/main/resources/spring/mvc-view-config.xml) |
+| Spring MVC - XML integration | [MvcViewConfig.java](src/main/java/org/springframework/samples/petclinic/config/MvcViewConfig.java)  |
+| Spring MVC - ContentNegotiatingViewResolver| [MvcViewConfig.java](src/main/java/org/springframework/samples/petclinic/config/MvcViewConfig.java) |
 | JSP custom tags | [WEB-INF/tags](src/main/webapp/WEB-INF/tags), [createOrUpdateOwnerForm.jsp](src/main/webapp/WEB-INF/jsp/owners/createOrUpdateOwnerForm.jsp)|
 | JavaScript dependencies | [JavaScript libraries are declared as webjars in the pom.xml](pom.xml) |
 | Static resources config | [Resource mapping in Spring configuration](/src/main/resources/spring/mvc-core-config.xml#L30) |
@@ -160,12 +156,12 @@ The following items should be installed in your system:
 
 | 'Service' and 'Repository' layers | Files |
 |-----------------------------------|-------|
-| Transactions | [business-config.xml](src/main/resources/spring/business-config.xml), [ClinicServiceImpl.java](src/main/java/org/springframework/samples/petclinic/service/ClinicServiceImpl.java) |
-| Cache | [tools-config.xml](src/main/resources/spring/tools-config.xml), [ClinicServiceImpl.java](src/main/java/org/springframework/samples/petclinic/service/ClinicServiceImpl.java) |
-| Bean Profiles | [business-config.xml](src/main/resources/spring/business-config.xml), [ClinicServiceJdbcTests.java](src/test/java/org/springframework/samples/petclinic/service/ClinicServiceJdbcTests.java), [PetclinicInitializer.java](src/main/java/org/springframework/samples/petclinic/PetclinicInitializer.java) |
-| JDBC | [business-config.xml](src/main/resources/spring/business-config.xml), [jdbc folder](src/main/java/org/springframework/samples/petclinic/repository/jdb) |
-| JPA | [business-config.xml](src/main/resources/spring/business-config.xml), [jpa folder](src/main/java/org/springframework/samples/petclinic/repository/jpa) |
-| Spring Data JPA | [business-config.xml](src/main/resources/spring/business-config.xml), [springdatajpa folder](src/main/java/org/springframework/samples/petclinic/repository/springdatajpa) |
+| Transactions | [BusinessConfig.java](src/main/java/org/springframework/samples/petclinic/config/BusinessConfig.java), [ClinicServiceImpl.java](src/main/java/org/springframework/samples/petclinic/service/ClinicServiceImpl.java) |
+| Cache | [ToolsConfig.java](src/main/java/org/springframework/samples/petclinic/config/ToolsConfig.java), [ClinicServiceImpl.java](src/main/java/org/springframework/samples/petclinic/service/ClinicServiceImpl.java) |
+| Bean Profiles | [DataSourceConfig.java](src/main/java/org/springframework/samples/petclinic/config/DataSourceConfig.java), [ClinicServiceJdbcTests.java](src/test/java/org/springframework/samples/petclinic/service/ClinicServiceJdbcTests.java), [PetclinicInitializer.java](src/main/java/org/springframework/samples/petclinic/PetclinicInitializer.java) |
+| JDBC | [JdbcConfig.java](src/main/java/org/springframework/samples/petclinic/config/JdbcConfig.java), [jdbc folder](src/main/java/org/springframework/samples/petclinic/repository/jdbc) |
+| JPA | [JpaConfig.java](src/main/java/org/springframework/samples/petclinic/config/JpaConfig.java), [SharedJpaConfig.java](src/main/java/org/springframework/samples/petclinic/config/SharedJpaConfig.java), [jpa folder](src/main/java/org/springframework/samples/petclinic/repository/jpa) |
+| Spring Data JPA | [SpringDataJpaConfig.java](src/main/java/org/springframework/samples/petclinic/config/SpringDataJpaConfig.java),  [SharedJpaConfig.java](src/main/java/org/springframework/samples/petclinic/config/SharedJpaConfig.java), [springdatajpa folder](src/main/java/org/springframework/samples/petclinic/repository/springdatajpa) |
 
 
 ## Publishing a Docker image
